@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>方寸序 - 瞬境</title>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: #121212; margin: 0; }
+        .iphone-15 {
+            width: 393px;
+            height: 852px;
+            box-shadow: 0 0 0 12px #222;
+            border-radius: 55px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+            margin: 50px auto;
+        }
+        .shusha-red { background-color: #BC2F32; }
+        .shusha-text { color: #BC2F32; }
+        
+        /* 相机网格辅助线 */
+        .grid-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+        .grid-line-h { position: absolute; left: 0; right: 0; height: 1px; background: rgba(255, 255, 255, 0.15); }
+        .grid-line-v { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(255, 255, 255, 0.15); }
+        
+        /* 交互效果 */
+        .btn {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            opacity: 0.8;
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
+        .zoom-option {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .zoom-option:hover {
+            color: #fff;
+        }
+        .camera-preview {
+            transition: all 0.3s ease;
+        }
+        .flash-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+    </style>
+    <script>
+        function init() {
+            // 初始化构图评分
+            updateCompositionScore(0, '分析中...');
+            
+            // 模拟从模型获取评分数据
+            setTimeout(() => {
+                updateCompositionScore(89, '建议：稍微向左平移，增强空间延展感。');
+            }, 1000);
+            
+            // 拍照按钮点击效果
+            const captureBtn = document.getElementById('btnCapture');
+            const flashEffect = document.getElementById('flashEffect');
+            const cameraPreview = document.getElementById('cameraPreview');
+            
+            captureBtn.addEventListener('click', function() {
+                // 闪光效果
+                flashEffect.style.opacity = '1';
+                setTimeout(() => {
+                    flashEffect.style.opacity = '0';
+                }, 300);
+                
+                // 预览图变暗再恢复
+                cameraPreview.style.opacity = '0.5';
+                setTimeout(() => {
+                    cameraPreview.style.opacity = '0.8';
+                }, 300);
+                
+                // 拍照后重新分析构图
+                updateCompositionScore(0, '分析中...');
+                setTimeout(() => {
+                    // 模拟随机评分结果
+                    const randomScore = Math.floor(Math.random() * 20) + 80; // 80-99
+                    let suggestion = '';
+                    if (randomScore >= 95) {
+                        suggestion = '构图完美，无需调整。';
+                    } else if (randomScore >= 90) {
+                        suggestion = '构图良好，细节处理得当。';
+                    } else if (randomScore >= 85) {
+                        suggestion = '建议：稍微调整角度，增强画面平衡。';
+                    } else {
+                        suggestion = '建议：重新构图，注意主体位置。';
+                    }
+                    updateCompositionScore(randomScore, suggestion);
+                }, 1500);
+            });
+            
+            // 相机选择按钮点击效果
+            const cameraSelectBtn = document.getElementById('btnCameraSelect');
+            cameraSelectBtn.addEventListener('click', function() {
+                alert('选择相机品牌型号');
+            });
+            
+            // 镜头切换按钮点击效果
+            const switchBtn = document.getElementById('btnSwitchCamera');
+            switchBtn.addEventListener('click', function() {
+                alert('选择镜头型号');
+            });
+            
+            // 导航栏点击效果
+            const navGallery = document.getElementById('navGallery');
+            const navCamera = document.getElementById('navCamera');
+            const navSettings = document.getElementById('navSettings');
+            
+            navGallery.addEventListener('click', function() {
+                alert('切换到画卷页面');
+            });
+            
+            navCamera.addEventListener('click', function() {
+                alert('当前在瞬境页面');
+            });
+            
+            navSettings.addEventListener('click', function() {
+                alert('切换到规序页面');
+            });
+        }
+        
+        // 更新构图评分
+        function updateCompositionScore(score, suggestion) {
+            const scoreElement = document.getElementById('compositionScore');
+            const progressElement = document.getElementById('scoreProgress');
+            const suggestionElement = document.getElementById('compositionSuggestion');
+            
+            if (scoreElement && progressElement && suggestionElement) {
+                scoreElement.textContent = score + '%';
+                progressElement.style.width = score + '%';
+                suggestionElement.textContent = suggestion;
+            }
+        }
+        
+        // 从模型获取构图评分的API函数
+        function getCompositionScoreFromModel(imageData) {
+            // 这里是与模型通信的API接口
+            // 实际项目中，这里会调用后端API获取真实的评分数据
+            return new Promise((resolve) => {
+                // 模拟API延迟
+                setTimeout(() => {
+                    // 模拟返回评分数据
+                    const score = Math.floor(Math.random() * 20) + 80; // 80-99
+                    let suggestion = '';
+                    if (score >= 95) {
+                        suggestion = '构图完美，无需调整。';
+                    } else if (score >= 90) {
+                        suggestion = '构图良好，细节处理得当。';
+                    } else if (score >= 85) {
+                        suggestion = '建议：稍微调整角度，增强画面平衡。';
+                    } else {
+                        suggestion = '建议：重新构图，注意主体位置。';
+                    }
+                    resolve({ score, suggestion });
+                }, 1000);
+            });
+        }
+        
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</head>
+<body>
+    <div class="iphone-15" style="display: flex; flex-direction: column; color: white;">
+        <!-- 取景器区域 -->
+        <div style="position: relative; flex: 1; background-color: #1f2937; overflow: hidden;">
+            <!-- 模拟相机预览底图 -->
+            <img id="cameraPreview" class="camera-preview" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;" src="https://modao.cc/agent-py/media/generated_images/2026-03-23/c0d2935f56b942df96ffc8374d379e11.jpg" alt="Camera preview showing a minimalist architecture"/>
+            <!-- 闪光效果 -->
+            <div id="flashEffect" class="flash-effect"></div>
+            <!-- 三层同心圆网格线 -->
+            <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;">
+                <div class="grid-circle w-[120px] h-[120px] border border-white/20"></div>
+                <div class="grid-circle w-[240px] h-[240px] border border-white/15"></div>
+                <div class="grid-circle w-[360px] h-[360px] border border-white/10"></div>
+                <!-- 九宫格线 -->
+                <div class="grid-line-h top-1/3"></div>
+                <div class="grid-line-h top-2/3"></div>
+                <div class="grid-line-v left-1/3"></div>
+                <div class="grid-line-v left-2/3"></div>
+            </div>
+            <!-- AI 构图评分面板 -->
+            <div id="compositionScorePanel" style="position: absolute; top: 128px; right: 16px; width: 112px; background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 12px; z-index: 10;">
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <span style="font-size: 10px; color: #9ca3af; margin-bottom: 4px;">构图评分</span>
+                    <span id="compositionScore" class="shusha-text" style="font-size: 24px; font-weight: bold; text-transform: uppercase;">--%</span>
+                    <div style="width: 100%; height: 4px; background-color: rgba(255, 255, 255, 0.1); border-radius: 9999px; margin-top: 8px; overflow: hidden;">
+                        <div id="scoreProgress" class="shusha-red" style="height: 100%; width: 0%;"></div>
+                    </div>
+                    <p id="compositionSuggestion" style="font-size: 9px; text-align: center; margin-top: 12px; line-height: 1.2; color: rgba(255, 255, 255, 0.8);">分析中...</p>
+                </div>
+            </div>
+            <!-- 底部拍照控制区 -->
+            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent); padding-top: 80px; padding-bottom: 40px;">
+
+                <div style="display: flex; justify-content: space-around; align-items: center; padding: 0 40px;">
+                    <div id="btnCameraSelect" class="btn" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                        <img src="D:/Programs/tool/fangcunxu-docs-2b1ea09610/docs/照相机.svg" style="width: 20px; height: 20px; filter: invert(1) brightness(0.8);" alt="相机选择" />
+                    </div>
+                    <div id="btnCapture" class="btn" style="width: 80px; height: 80px; border-radius: 50%; border: 6px solid rgba(255, 255, 255, 0.3); display: flex; align-items: center; justify-content: center;"></div>
+                    <div id="btnSwitchCamera" class="btn" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                        <img src="D:/Programs/tool/fangcunxu-docs-2b1ea09610/docs/镜头.svg" style="width: 20px; height: 20px; filter: invert(1) brightness(0.8);" alt="镜头选择" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 底部导航栏 -->
+        <div style="height: 96px; background-color: black; border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: space-around; padding: 0 24px; padding-bottom: 24px;">
+            <div id="navGallery" class="btn" style="display: flex; flex-direction: column; align-items: center; gap: 4px; color: #6b7280;">
+                <svg style="font-size: 24px;" height="24" viewBox="0 0 32 32" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M13.104 6.667l-2.667 2.667h-5.104v16h21.333v-16h-5.104l-2.667-2.667h-5.792zM12 4h8l2.667 2.667h5.333c0.736 0 1.333 0.597 1.333 1.333v0 18.667c0 0.736-0.597 1.333-1.333 1.333v0h-24c-0.736 0-1.333-0.597-1.333-1.333v0-18.667c0-0.736 0.597-1.333 1.333-1.333v0h5.333l2.667-2.667zM16 24c-4.050 0-7.333-3.283-7.333-7.333s3.283-7.333 7.333-7.333v0c4.050 0 7.333 3.283 7.333 7.333s-3.283 7.333-7.333 7.333v0zM16 21.333c2.577 0 4.667-2.089 4.667-4.667s-2.089-4.667-4.667-4.667v0c-2.577 0-4.667 2.089-4.667 4.667s2.089 4.667 4.667 4.667v0z" fill="currentColor" stroke="none"></path></svg>
+                <span style="font-size: 10px;">画卷</span>
+            </div>
+            <div id="navCamera" class="btn shusha-text" style="display: flex; flex-direction: column; align-items: center; gap: 4px; color: #BC2F32;">
+                <svg style="font-size: 24px;" height="24" viewBox="0 0 32 32" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M16 4c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zM16 26c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zM16 10c-3.314 0-6 2.686-6 6s2.686 6 6 6 6-2.686 6-6-2.686-6-6-6zM16 22c-3.314 0-6-2.686-6-6s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6z" fill="currentColor" stroke="none"></path></svg>
+                <span style="font-size: 10px;">瞬境</span>
+            </div>
+            <div id="navSettings" class="btn" style="display: flex; flex-direction: column; align-items: center; gap: 4px; color: #6b7280;">
+                <svg style="font-size: 24px;" height="24" viewBox="0 0 32 32" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M16 4c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zM16 26c-5.523 0-10-4.477-10-10s4.477-10 10-10 10 4.477 10 10-4.477 10-10 10zM12 10l-2 2 2 2 2-2-2-2zM12 20l-2-2 2-2 2 2-2 2z" fill="currentColor" stroke="none"></path></svg>
+                <span style="font-size: 10px;">规序</span>
+            </div>
+        </div>
+        <!-- 底部 Home Indicator -->
+        <div style="position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); width: 128px; height: 6px; background-color: rgba(255, 255, 255, 0.3); border-radius: 3px;"></div>
+    </div>
+</body>
+</html>

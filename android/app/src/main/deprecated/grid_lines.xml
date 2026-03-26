@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- 水平三分线 -->
+    <path
+        android:pathData="M0,33.3 L100,33.3 M0,66.7 L100,66.7"
+        android:strokeWidth="1"
+        android:strokeColor="#80FFFFFF"
+        android:strokeLineCap="round"/>
+    <!-- 垂直三分线 -->
+    <path
+        android:pathData="M33.3,0 L33.3,100 M66.7,0 L66.7,100"
+        android:strokeWidth="1"
+        android:strokeColor="#80FFFFFF"
+        android:strokeLineCap="round"/>
+    <!-- 交叉点 -->
+    <circle
+        cx="33.3"
+        cy="33.3"
+        r="1"
+        android:fillColor="#80FFFFFF"/>
+    <circle
+        cx="66.7"
+        cy="33.3"
+        r="1"
+        android:fillColor="#80FFFFFF"/>
+    <circle
+        cx="33.3"
+        cy="66.7"
+        r="1"
+        android:fillColor="#80FFFFFF"/>
+    <circle
+        cx="66.7"
+        cy="66.7"
+        r="1"
+        android:fillColor="#80FFFFFF"/>
+</vector>
