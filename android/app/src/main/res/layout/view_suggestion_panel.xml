@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/black_transparent"
+    android:padding="16dp">
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="综合评分"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+        
+        <TextView
+            android:id="@+id/tvScore"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="-- 分"
+            android:textColor="@color/green_primary"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+        
+        <TextView
+            android:id="@+id/tvRating"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="等待分析"
+            android:textColor="@color/green_primary"
+            android:textSize="16sp" />
+    </LinearLayout>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="构图建议"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+    
+    <LinearLayout
+        android:id="@+id/llSuggestions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp" />
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="参数建议"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp">
+        
+        <TextView
+            android:id="@+id/tvParameterAperture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="光圈: --"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+        
+        <TextView
+            android:id="@+id/tvParameterFocalLength"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="焦距: --"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+        
+        <TextView
+            android:id="@+id/tvParameterISO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ISO: --"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+        
+        <TextView
+            android:id="@+id/tvParameterShutter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="快门: --"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/tvExplanation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text=""
+        android:textColor="@color/gray_light"
+        android:textSize="12sp" />
+</LinearLayout>

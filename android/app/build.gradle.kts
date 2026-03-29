@@ -61,6 +61,10 @@ dependencies {
     // TensorFlow Lite
     implementation("org.tensorflow:tensorflow-lite:2.15.0")
     implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
+    implementation("org.tensorflow:tensorflow-lite-gpu:2.15.0")
+    
+    // ONNX Runtime
+    implementation("com.microsoft.onnxruntime:onnxruntime-android:1.16.3")
     
     // 传感器
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.4")

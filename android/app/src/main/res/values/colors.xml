@@ -20,4 +20,6 @@
     <color name="icon_background">#333333</color>
     <color name="nav_background">#0D000000</color>
     <color name="badge_background">#1AFFFFFF</color>
+    <color name="black_transparent">#80000000</color>
+    <color name="gray_light">#D1D5DB</color>
 </resources>
